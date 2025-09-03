@@ -44,6 +44,7 @@
         align-items: center;
         padding: 1rem 0;
         margin-bottom: 30px;
+        position: relative;
       }
 
       .logo {
@@ -444,7 +445,7 @@
         }
 
         nav {
-          justify-content: center;
+          justify-content: space-between;
         }
 
         .hero h1 {
@@ -475,6 +476,86 @@
           grid-template-columns: 1fr;
         }
       }
+
+      /* Mobile Menu Toggle (improved for straight X) */
+      .menu-toggle {
+        display: none;
+        position: relative;
+        width: 28px;
+        height: 22px;
+        cursor: pointer;
+      }
+      .menu-toggle .bar {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        background: #2c3e50;
+        border-radius: 2px;
+        transition: transform 0.3s ease, opacity 0.2s ease, top 0.3s ease,
+          bottom 0.3s ease;
+        transform-origin: center;
+      }
+      .menu-toggle .bar:nth-child(1) {
+        top: 0;
+      }
+      .menu-toggle .bar:nth-child(2) {
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .menu-toggle .bar:nth-child(3) {
+        bottom: 0;
+      }
+
+      @media (max-width: 768px) {
+        .menu-toggle {
+          display: block;
+        }
+
+        /* Centered dropdown */
+        .nav-center {
+          display: none;
+          flex-direction: column;
+          align-items: center; /* center items */
+          gap: 1.5rem;
+          background: white;
+          position: absolute;
+          top: 70px;
+          left: 50%; /* center horizontally */
+          transform: translateX(-50%); /* center horizontally */
+          width: calc(100% - 40px); /* 20px margin on both sides */
+          max-width: 520px;
+          padding: 1.5rem;
+          border-radius: 10px;
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+          z-index: 1001;
+          text-align: center;
+        }
+
+        .nav-links {
+          flex-direction: column;
+          gap: 1rem;
+          align-items: center; /* ensure links are centered */
+        }
+
+        .nav-center.active {
+          display: flex;
+        }
+
+        /* Perfectly straight X */
+        .menu-toggle.active .bar:nth-child(1) {
+          top: 50%;
+          transform: translateY(-50%) rotate(45deg);
+        }
+        .menu-toggle.active .bar:nth-child(2) {
+          opacity: 0;
+        }
+        .menu-toggle.active .bar:nth-child(3) {
+          bottom: auto;
+          top: 50%;
+          transform: translateY(-50%) rotate(-45deg);
+        }
+      }
     </style>
   </head>
   <body>
@@ -482,6 +563,14 @@
     <header>
       <nav class="container">
         <a href="#" class="logo">Research Dhamala</a>
+
+        <!-- Mobile menu toggle -->
+        <div class="menu-toggle" id="menu-toggle">
+          <span class="bar"></span>
+          <span class="bar"></span>
+          <span class="bar"></span>
+        </div>
+
         <div class="nav-center">
           <ul class="nav-links">
             <li><a href="#home">Home</a></li>
@@ -559,31 +648,24 @@
             <div class="skill-icon">N</div>
             <h3>Node.js</h3>
             <p>
-              Developing robust server-side applications and RESTful APIs with
-              Node.js.
-            </p>
-          </div>
-          <div class="skill-card">
-            <div class="skill-icon">E</div>
-            <h3>Express.js</h3>
-            <p>
-              Creating efficient web applications and APIs using the Express.js
-              framework.
+              Developing robust backend services and REST APIs with Node.js and
+              Express.
             </p>
           </div>
           <div class="skill-card">
             <div class="skill-icon">M</div>
             <h3>MongoDB</h3>
             <p>
-              Designing and managing NoSQL databases for scalable web
-              applications.
+              Efficient data modeling and management with MongoDB, a leading
+              NoSQL database.
             </p>
           </div>
           <div class="skill-card">
-            <div class="skill-icon">SQL</div>
-            <h3>MySQL</h3>
+            <div class="skill-icon">F</div>
+            <h3>Full Stack</h3>
             <p>
-              Basic knowledge of relational database management and SQL queries.
+              Proficient in building complete web applications from frontend to
+              backend using MERN stack.
             </p>
           </div>
         </div>
@@ -598,46 +680,42 @@
           <div class="project-card">
             <h3>Blogging Platform</h3>
             <p>
-              A full-featured blogging platform built with the MERN stack. Users
-              can create, edit, and publish blog posts with a clean and
-              intuitive interface. Features include user authentication, rich
-              text editing, and responsive design.
+              A full-featured blogging platform where users can create, edit,
+              and share blog posts. It is a full stack project made with MERN.
             </p>
             <a
               href="https://github.com/claygro/Blogging"
-              class="project-link"
               target="_blank"
-              >View on GitHub →</a
+              class="project-link"
+              >View Project</a
             >
           </div>
           <div class="project-card">
             <h3>Post Sharing Platform</h3>
             <p>
-              A social media-style platform where users can share posts,
-              interact with content, and connect with others. Built using modern
-              web technologies with focus on user experience and real-time
-              interactions.
+              A social media-like platform where users can share and interact
+              with posts. It is a full stack project made with MERN
             </p>
             <a
-              href="https://github.com/claygro/Share"
-              class="project-link"
+              href="https://github.com/claygro/share"
               target="_blank"
-              >View on GitHub →</a
+              class="project-link"
+              >View Project</a
             >
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Hobbies Section -->
-    <section id="hobbies" class="section">
-      <div class="container">
-        <h2 class="section-title">My Hobbies</h2>
-        <div class="hobbies-list">
-          <span class="hobby-tag">Coding</span>
-          <span class="hobby-tag">Drawing</span>
-          <span class="hobby-tag">Cycling</span>
-          <span class="hobby-tag">Art</span>
+          <div class="project-card">
+            <h3>Password manager</h3>
+            <p>
+              A password manager platform for manage password. It is a full
+              stack project made with MERN.
+            </p>
+            <a
+              href="https://github.com/claygro/passwordmanager"
+              target="_blank"
+              class="project-link"
+              >View Project</a
+            >
+          </div>
         </div>
       </div>
     </section>
@@ -645,56 +723,50 @@
     <!-- Contact Section -->
     <section id="contact" class="section">
       <div class="container">
-        <h2 class="section-title">Get In Touch</h2>
+        <h2 class="section-title">Contact Me</h2>
         <div class="contact">
-          <div class="contact-info">
-            <p>
-              I'm always interested in new opportunities and collaborations.
-            </p>
-            <p>
-              Feel free to reach out if you'd like to work together or just want
-              to say hello!
-            </p>
-          </div>
-
-          <form class="contact-form" action="#" method="POST">
+          <p class="contact-info">
+            Interested in collaborating or have a project in mind? Feel free to
+            reach out!
+          </p>
+          <form class="contact-form">
             <div class="form-row">
               <div class="form-group">
-                <label for="firstName">First Name</label>
-                <input type="text" id="firstName" name="firstName" required />
+                <label for="name">Name</label>
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  placeholder="Your name"
+                />
               </div>
               <div class="form-group">
-                <label for="lastName">Last Name</label>
-                <input type="text" id="lastName" name="lastName" required />
+                <label for="email">Email</label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="Your email"
+                />
               </div>
             </div>
-
-            <div class="form-row">
-              <div class="form-group">
-                <label for="email">Email Address</label>
-                <input type="email" id="email" name="email" required />
-              </div>
-              <div class="form-group">
-                <label for="phone">Phone Number</label>
-                <input type="tel" id="phone" name="phone" />
-              </div>
-            </div>
-
             <div class="form-group">
               <label for="subject">Subject</label>
-              <input type="text" id="subject" name="subject" required />
+              <input
+                type="text"
+                id="subject"
+                name="subject"
+                placeholder="Subject"
+              />
             </div>
-
             <div class="form-group">
               <label for="message">Message</label>
               <textarea
                 id="message"
                 name="message"
-                placeholder="Tell me about your project or just say hello!"
-                required
+                placeholder="Your message"
               ></textarea>
             </div>
-
             <button type="submit" class="submit-btn">Send Message</button>
           </form>
         </div>
@@ -709,119 +781,32 @@
     </footer>
 
     <script>
-      // Smooth scrolling for navigation links
-      document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-        anchor.addEventListener("click", function (e) {
-          e.preventDefault();
-          document.querySelector(this.getAttribute("href")).scrollIntoView({
-            behavior: "smooth",
-          });
-        });
-      });
-
       // Scroll animations
-      const observerOptions = {
-        threshold: 0.1,
-        rootMargin: "0px 0px -100px 0px",
-      };
+      const sections = document.querySelectorAll(".section");
 
-      const observer = new IntersectionObserver(function (entries) {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
+      function checkVisibility() {
+        const triggerBottom = window.innerHeight * 0.85;
+
+        sections.forEach((section) => {
+          const sectionTop = section.getBoundingClientRect().top;
+
+          if (sectionTop < triggerBottom) {
+            section.classList.add("visible");
           }
         });
-      }, observerOptions);
-
-      document.querySelectorAll(".section").forEach((section) => {
-        observer.observe(section);
-      });
-
-      // Header background change on scroll
-      window.addEventListener("scroll", function () {
-        const header = document.querySelector("header");
-        if (window.scrollY > 100) {
-          header.style.background = "rgba(255, 255, 255, 0.98)";
-        } else {
-          header.style.background = "rgba(255, 255, 255, 0.95)";
-        }
-      });
-
-      // Typing animation for the hero title
-      function typeWriter(element, text, speed = 100) {
-        let i = 0;
-        element.innerHTML = "";
-        function typing() {
-          if (i < text.length) {
-            element.innerHTML += text.charAt(i);
-            i++;
-            setTimeout(typing, speed);
-          }
-        }
-        typing();
       }
 
-      // Initialize typing animation when page loads
-      window.addEventListener("load", function () {
-        const heroTitle = document.querySelector(".hero h1");
-        const originalText = heroTitle.textContent;
-        typeWriter(heroTitle, originalText, 100);
+      window.addEventListener("scroll", checkVisibility);
+      window.addEventListener("load", checkVisibility);
+
+      // Mobile menu toggle
+      const menuToggle = document.getElementById("menu-toggle");
+      const navCenter = document.querySelector(".nav-center");
+
+      menuToggle.addEventListener("click", () => {
+        menuToggle.classList.toggle("active");
+        navCenter.classList.toggle("active");
       });
-
-      // Add hover effects to skill cards
-      document.querySelectorAll(".skill-card").forEach((card) => {
-        card.addEventListener("mouseenter", function () {
-          this.style.transform = "translateY(-10px) scale(1.02)";
-        });
-
-        card.addEventListener("mouseleave", function () {
-          this.style.transform = "translateY(0) scale(1)";
-        });
-      });
-
-      // Add form submission handling
-      document
-        .querySelector(".contact-form")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-
-          // Get form data
-          const formData = new FormData(this);
-          const submitBtn = document.querySelector(".submit-btn");
-          const originalText = submitBtn.textContent;
-
-          // Show loading state
-          submitBtn.textContent = "Sending...";
-          submitBtn.style.background = "#95a5a6";
-
-          // Simulate form submission (you can replace this with actual form submission logic)
-          setTimeout(() => {
-            submitBtn.textContent = "Message Sent!";
-            submitBtn.style.background = "#27ae60";
-
-            // Reset form
-            this.reset();
-
-            // Reset button after 3 seconds
-            setTimeout(() => {
-              submitBtn.textContent = originalText;
-              submitBtn.style.background = "";
-            }, 3000);
-          }, 1500);
-        });
-
-      // Form field animations
-      document
-        .querySelectorAll(".form-group input, .form-group textarea")
-        .forEach((field) => {
-          field.addEventListener("focus", function () {
-            this.parentElement.style.transform = "translateY(-2px)";
-          });
-
-          field.addEventListener("blur", function () {
-            this.parentElement.style.transform = "translateY(0)";
-          });
-        });
     </script>
   </body>
 </html>
